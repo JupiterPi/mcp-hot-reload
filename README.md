@@ -1,5 +1,11 @@
 # mcp-hot-reload
 
+> **NOTICE: This project is vibe-coded.** The entire codebase — design, implementation, and tests —
+> was written by an AI coding agent (Claude) from prompted instructions, with human review of the
+> overall approach but not line-by-line. It works and is tested, but treat it accordingly: read
+> the code before trusting it with anything sensitive, and expect the rough edges of a project
+> that hasn't seen much real-world battle-testing yet.
+
 A transparent MCP stdio proxy for developing MCP servers. Point your MCP client at
 `mcp-hot-reload` instead of your server directly, and it forwards everything through to your
 server ("the child") unchanged — except it injects one extra tool, `restart_dev_server`. Call
@@ -9,6 +15,21 @@ reconnecting.
 
 There is no file watching. Restart happens only when you (or your agent) explicitly calls the
 injected tool.
+
+## Installation
+
+This package is published to the public npm registry as a scoped package, so no extra
+authentication or `.npmrc` setup is needed to install it:
+
+```
+npm install -g @jupiterpi/mcp-hot-reload
+```
+
+Or run it on demand without a global install:
+
+```
+npx -y @jupiterpi/mcp-hot-reload -- <command to run your dev-mode MCP server> [args...]
+```
 
 ## Usage
 
@@ -28,9 +49,49 @@ Example, wrapping the bundled example server:
 mcp-hot-reload -- node examples/dev-server/server.mjs
 ```
 
-### Claude Code configuration
+### Install as an MCP server (with a child dev server)
 
-Point Claude Code at the proxy instead of your server directly:
+Point your MCP client at `mcp-hot-reload` instead of at your server directly, passing your
+server's own command after `--`. That inner command is the "child" — the dev-mode server you're
+actively editing.
+
+**Using the published package** (after [installing it globally](#installation)):
+
+```json
+{
+  "mcpServers": {
+    "my-dev-server": {
+      "command": "mcp-hot-reload",
+      "args": [
+        "--",
+        "node",
+        "/path/to/my-server/index.js"
+      ]
+    }
+  }
+}
+```
+
+Or without a global install, via `npx`:
+
+```json
+{
+  "mcpServers": {
+    "my-dev-server": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@jupiterpi/mcp-hot-reload",
+        "--",
+        "node",
+        "/path/to/my-server/index.js"
+      ]
+    }
+  }
+}
+```
+
+**From a local checkout/build** (see [Development](#development)):
 
 ```json
 {

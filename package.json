@@ -1,8 +1,15 @@
 {
-  "name": "mcp-hot-reload",
+  "name": "@jupiterpi/mcp-hot-reload",
   "version": "0.1.0",
   "description": "Transparent MCP stdio proxy with an in-session restart tool for hot-reloading a dev-mode MCP server",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jupiterpi/mcp-hot-reload.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "bin": {
     "mcp-hot-reload": "dist/cli.js"
   },
