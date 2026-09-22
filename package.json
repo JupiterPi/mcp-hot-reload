@@ -1,0 +1,29 @@
+{
+  "name": "mcp-hot-reload",
+  "version": "0.1.0",
+  "description": "Transparent MCP stdio proxy with an in-session restart tool for hot-reloading a dev-mode MCP server",
+  "type": "module",
+  "bin": {
+    "mcp-hot-reload": "dist/cli.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "dist",
+    "examples/dev-server",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test dist-test/test/*.test.js",
+    "pretest": "tsc -p tsconfig.test.json"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.7.0"
+  }
+}

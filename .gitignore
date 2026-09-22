@@ -1,0 +1,6 @@
+node_modules/
+dist/
+dist-test/
+test/.tmp-e2e/
+*.log
+.claude/
